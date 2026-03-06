@@ -4,17 +4,779 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Iñaki Urbizu | Desarrollador de Software</title>
+    <title>Iñaki Urbizu — Full Stack Developer</title>
     <meta name="description"
-        content="Portafolio profesional de Iñaki Urbizu, Técnico en Programación Informática enfocado en el desarrollo de software y soluciones con IA.">
-    <link rel="stylesheet" href="index.css">
+        content="Portfolio profesional de Iñaki Urbizu, desarrollador Full Stack especializado en Java, Spring Boot y React.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --ink: #0a0a0f;
+            --ink-80: rgba(10, 10, 15, 0.8);
+            --paper: #f5f3ef;
+            --paper-warm: #ede9e2;
+            --accent: #1a3cff;
+            --accent-dim: rgba(26, 60, 255, 0.10);
+            --muted: #6b6b78;
+            --border: rgba(10, 10, 15, 0.10);
+            --border-strong: rgba(10, 10, 15, 0.18);
+            --white: #ffffff;
+            --max: 1060px;
+            --ease: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'DM Sans', system-ui, sans-serif;
+            background: var(--paper);
+            color: var(--ink);
+            line-height: 1.65;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        /* ─── NOISE TEXTURE OVERLAY ─── */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.035'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.6;
+        }
+
+        /* ─── TYPOGRAPHY ─── */
+        h1,
+        h2,
+        h3,
+        h4 {
+            font-family: 'Syne', sans-serif;
+            font-weight: 700;
+            line-height: 1.15;
+            letter-spacing: -0.02em;
+            color: var(--ink);
+        }
+
+        /* ─── LAYOUT ─── */
+        .wrap {
+            max-width: var(--max);
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* ─── HEADER / NAV ─── */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(245, 243, 239, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 64px;
+        }
+
+        .logo {
+            font-family: 'Syne', sans-serif;
+            font-weight: 800;
+            font-size: 1.05rem;
+            letter-spacing: -0.01em;
+            color: var(--ink);
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: var(--accent);
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--muted);
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: color 0.2s;
+            letter-spacing: 0.01em;
+        }
+
+        .nav-links a:hover {
+            color: var(--ink);
+        }
+
+        /* ─── HERO ─── */
+        .hero {
+            padding: 7rem 0 6rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            align-items: end;
+            gap: 4rem;
+        }
+
+        .hero-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.8rem;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-eyebrow::before {
+            content: '';
+            display: block;
+            width: 24px;
+            height: 1px;
+            background: var(--accent);
+        }
+
+        .hero h1 {
+            font-size: clamp(3rem, 7vw, 5.5rem);
+            font-weight: 800;
+            margin-bottom: 1.75rem;
+            line-height: 1.05;
+        }
+
+        .hero h1 em {
+            font-style: normal;
+            color: var(--accent);
+        }
+
+        .hero-desc {
+            font-size: 1.1rem;
+            color: var(--muted);
+            max-width: 520px;
+            line-height: 1.75;
+            margin-bottom: 2.5rem;
+            font-weight: 300;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+        }
+
+        .hero-meta {
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+            align-items: flex-end;
+            padding-bottom: 0.5rem;
+        }
+
+        .hero-stat {
+            text-align: right;
+        }
+
+        .hero-stat-num {
+            font-family: 'Syne', sans-serif;
+            font-size: 2.25rem;
+            font-weight: 800;
+            line-height: 1;
+            color: var(--ink);
+        }
+
+        .hero-stat-label {
+            font-size: 0.75rem;
+            color: var(--muted);
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            margin-top: 0.2rem;
+        }
+
+        .hero-divider {
+            width: 1px;
+            height: 40px;
+            background: var(--border-strong);
+            margin-left: auto;
+        }
+
+        /* Decorative element */
+        .hero-deco {
+            position: absolute;
+            right: -120px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 480px;
+            height: 480px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(26, 60, 255, 0.06) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        /* ─── BUTTONS ─── */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.7rem 1.4rem;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.875rem;
+            font-weight: 500;
+            text-decoration: none;
+            border-radius: 6px;
+            transition: all 0.2s var(--ease);
+            cursor: pointer;
+            border: none;
+            letter-spacing: 0.01em;
+        }
+
+        .btn-primary {
+            background: var(--ink);
+            color: var(--paper);
+        }
+
+        .btn-primary:hover {
+            background: var(--accent);
+            transform: translateY(-1px);
+        }
+
+        .btn-ghost {
+            background: transparent;
+            color: var(--ink);
+            border: 1px solid var(--border-strong);
+        }
+
+        .btn-ghost:hover {
+            background: var(--white);
+            border-color: var(--ink);
+            transform: translateY(-1px);
+        }
+
+        /* ─── SECTION SHELL ─── */
+        .section {
+            padding: 5.5rem 0;
+        }
+
+        .section-stripe {
+            background: var(--white);
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .section-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-bottom: 0.75rem;
+        }
+
+        .section-label::before {
+            content: '';
+            display: block;
+            width: 16px;
+            height: 1px;
+            background: var(--muted);
+        }
+
+        .section-title {
+            font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+            margin-bottom: 3rem;
+        }
+
+        /* ─── PROFILE ─── */
+        .profile-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .profile-text p {
+            font-size: 1.05rem;
+            color: var(--muted);
+            line-height: 1.8;
+            font-weight: 300;
+        }
+
+        .profile-text p+p {
+            margin-top: 1rem;
+        }
+
+        .profile-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 2rem;
+        }
+
+        .tag {
+            font-size: 0.78rem;
+            font-weight: 500;
+            padding: 0.3rem 0.75rem;
+            border-radius: 100px;
+            border: 1px solid var(--border-strong);
+            color: var(--muted);
+            letter-spacing: 0.02em;
+        }
+
+        .profile-card {
+            background: var(--ink);
+            color: var(--paper);
+            border-radius: 16px;
+            padding: 2.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .profile-card::before {
+            content: '';
+            position: absolute;
+            top: -60px;
+            right: -60px;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(26, 60, 255, 0.4) 0%, transparent 70%);
+        }
+
+        .profile-card-name {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin-bottom: 0.3rem;
+            position: relative;
+        }
+
+        .profile-card-role {
+            font-size: 0.85rem;
+            color: rgba(245, 243, 239, 0.55);
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        .profile-card-items {
+            display: flex;
+            flex-direction: column;
+            gap: 0.85rem;
+            position: relative;
+        }
+
+        .profile-card-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 0.875rem;
+            color: rgba(245, 243, 239, 0.75);
+        }
+
+        .profile-card-item svg {
+            flex-shrink: 0;
+            opacity: 0.6;
+        }
+
+        /* ─── EXPERIENCE ─── */
+        .exp-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .exp-card {
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 2rem 2.25rem;
+            transition: border-color 0.2s, box-shadow 0.2s;
+            position: relative;
+        }
+
+        .exp-card:hover {
+            border-color: var(--accent);
+            box-shadow: 0 8px 32px rgba(26, 60, 255, 0.07);
+        }
+
+        .exp-card-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 0.35rem;
+        }
+
+        .exp-card-title {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+        }
+
+        .exp-badge {
+            flex-shrink: 0;
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 0.25rem 0.65rem;
+            border-radius: 100px;
+            background: var(--accent-dim);
+            color: var(--accent);
+            letter-spacing: 0.03em;
+        }
+
+        .exp-sub {
+            font-size: 0.825rem;
+            color: var(--muted);
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+
+        .exp-desc {
+            font-size: 0.925rem;
+            color: var(--muted);
+            line-height: 1.7;
+            margin-bottom: 1rem;
+        }
+
+        .exp-bullets {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .exp-bullets li {
+            font-size: 0.875rem;
+            color: var(--ink);
+            padding-left: 1.1rem;
+            position: relative;
+            line-height: 1.55;
+        }
+
+        .exp-bullets li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+            font-size: 0.8rem;
+        }
+
+        .exp-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            font-size: 0.825rem;
+            font-weight: 600;
+            color: var(--accent);
+            text-decoration: none;
+            transition: gap 0.2s;
+        }
+
+        .exp-link:hover {
+            gap: 0.5rem;
+        }
+
+        /* ─── SKILLS ─── */
+        .skills-layout {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+
+        .skill-group {
+            background: var(--paper);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.75rem;
+        }
+
+        .skill-group-title {
+            font-family: 'Syne', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-bottom: 1.25rem;
+        }
+
+        .skill-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .chip {
+            font-size: 0.82rem;
+            font-weight: 500;
+            padding: 0.35rem 0.8rem;
+            border-radius: 6px;
+            background: var(--white);
+            border: 1px solid var(--border);
+            color: var(--ink);
+            transition: all 0.18s;
+        }
+
+        .chip:hover {
+            background: var(--ink);
+            color: var(--paper);
+            border-color: var(--ink);
+        }
+
+        /* ─── EDUCATION ─── */
+        .edu-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .edu-card {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 2rem;
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.75rem 2.25rem;
+            transition: border-color 0.2s;
+        }
+
+        .edu-card:hover {
+            border-color: var(--border-strong);
+        }
+
+        .edu-degree {
+            font-family: 'Syne', sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 0.2rem;
+        }
+
+        .edu-school {
+            font-size: 0.875rem;
+            color: var(--muted);
+        }
+
+        .edu-period {
+            flex-shrink: 0;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--muted);
+            background: var(--paper);
+            padding: 0.3rem 0.8rem;
+            border-radius: 100px;
+            border: 1px solid var(--border);
+            white-space: nowrap;
+        }
+
+        /* ─── CONTACT ─── */
+        .contact-shell {
+            background: var(--ink);
+            border-radius: 20px;
+            padding: 5rem 4rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact-shell::before {
+            content: '';
+            position: absolute;
+            top: -100px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 600px;
+            height: 300px;
+            background: radial-gradient(ellipse, rgba(26, 60, 255, 0.35) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .contact-shell h2 {
+            font-family: 'Syne', sans-serif;
+            font-size: clamp(2rem, 4vw, 3rem);
+            color: var(--paper);
+            margin-bottom: 1rem;
+            position: relative;
+        }
+
+        .contact-shell p {
+            color: rgba(245, 243, 239, 0.55);
+            font-size: 1rem;
+            margin-bottom: 2.5rem;
+            position: relative;
+        }
+
+        .contact-btns {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            position: relative;
+        }
+
+        .btn-contact-primary {
+            background: var(--accent);
+            color: var(--paper);
+            padding: 0.8rem 1.75rem;
+        }
+
+        .btn-contact-primary:hover {
+            background: #0a2be0;
+            transform: translateY(-2px);
+        }
+
+        .btn-contact-ghost {
+            background: rgba(245, 243, 239, 0.08);
+            color: var(--paper);
+            border: 1px solid rgba(245, 243, 239, 0.15);
+            padding: 0.8rem 1.75rem;
+        }
+
+        .btn-contact-ghost:hover {
+            background: rgba(245, 243, 239, 0.14);
+            transform: translateY(-2px);
+        }
+
+        /* ─── FOOTER ─── */
+        footer {
+            padding: 2.5rem 0;
+            border-top: 1px solid var(--border);
+        }
+
+        .footer-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .footer-copy {
+            font-size: 0.825rem;
+            color: var(--muted);
+        }
+
+        .footer-nav {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .footer-nav a {
+            font-size: 0.825rem;
+            color: var(--muted);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .footer-nav a:hover {
+            color: var(--ink);
+        }
+
+        /* ─── SCROLL ANIMATIONS ─── */
+        .reveal {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.65s var(--ease), transform 0.65s var(--ease);
+        }
+
+        .reveal.in {
+            opacity: 1;
+            transform: none;
+        }
+
+        .reveal-delay-1 {
+            transition-delay: 0.1s;
+        }
+
+        .reveal-delay-2 {
+            transition-delay: 0.2s;
+        }
+
+        .reveal-delay-3 {
+            transition-delay: 0.3s;
+        }
+
+        /* ─── RESPONSIVE ─── */
+        @media (max-width: 900px) {
+            .hero-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-meta {
+                display: none;
+            }
+
+            .profile-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .skills-layout {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .hero {
+                padding: 4rem 0 3.5rem;
+            }
+
+            .hero h1 {
+                font-size: 2.75rem;
+            }
+
+            .skills-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .edu-card {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.75rem;
+            }
+
+            .contact-shell {
+                padding: 3rem 1.75rem;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
+    <!-- NAV -->
     <header>
-        <div class="container nav">
-            <div class="logo">Iñaki Urbizu</div>
+        <div class="wrap nav">
+            <a href="#" class="logo">Iñaki <span>Urbizu</span></a>
             <ul class="nav-links">
                 <li><a href="#perfil">Perfil</a></li>
                 <li><a href="#experiencia">Experiencia</a></li>
@@ -26,181 +788,351 @@
     </header>
 
     <main>
-        <!-- Hero Section -->
-        <section class="hero container">
-            <div class="fade-in">
-                <h1>Desarrollo de Software <br>con Enfoque en IA</h1>
-                <p>Técnico en Programación Informática con experiencia en arquitecturas modernas, integración de modelos
-                    de lenguaje y desarrollo Full Stack robusto.</p>
-                <div class="hero-actions">
-                    <a href="#contacto" class="btn">Contactar</a>
-                    <a href="https://github.com/RullyUrbizu" target="_blank" class="btn btn-outline">Ver GitHub</a>
+
+        <!-- HERO -->
+        <section class="hero">
+            <div class="hero-deco"></div>
+            <div class="wrap">
+                <div class="hero-grid">
+                    <div>
+                        <p class="hero-eyebrow">Full Stack Developer</p>
+                        <h1>Iñaki<br>Urbizu<em>.</em></h1>
+                        <p class="hero-desc">
+                            Desarrollador de software especializado en backend con Java y Spring Boot,
+                            y frontend con React. Construyo sistemas robustos, APIs escalables y aplicaciones
+                            web bien arquitecturadas.
+                        </p>
+                        <div class="hero-actions">
+                            <a href="#contacto" class="btn btn-primary">
+                                Contactar
+                                <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                                    <path d="M2 7h10M7 2l5 5-5 5" stroke="currentColor" stroke-width="1.5"
+                                        stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                            </a>
+                            <a href="https://github.com/RullyUrbizu" target="_blank" class="btn btn-ghost">
+                                <svg width="15" height="15" viewBox="0 0 15 15" fill="none">
+                                    <path
+                                        d="M7.5 0C3.36 0 0 3.45 0 7.7c0 3.4 2.16 6.28 5.16 7.3.38.07.52-.17.52-.38v-1.34C3.6 13.76 3.16 12.4 3.16 12.4c-.34-.9-.84-1.13-.84-1.13-.69-.48.05-.47.05-.47.76.05 1.16.8 1.16.8.68 1.18 1.77.84 2.2.64.07-.5.26-.84.48-1.04-1.68-.2-3.45-.86-3.45-3.82 0-.84.29-1.53.78-2.07-.08-.2-.34-1 .07-2.08 0 0 .64-.21 2.1.8A7.2 7.2 0 0 1 7.5 3.6c.65 0 1.3.09 1.9.26 1.46-1.01 2.1-.8 2.1-.8.4 1.08.15 1.88.07 2.08.49.54.78 1.23.78 2.07 0 2.97-1.77 3.62-3.46 3.81.27.24.52.7.52 1.42v2.1c0 .21.13.46.52.38A7.72 7.72 0 0 0 15 7.7C15 3.45 11.64 0 7.5 0z"
+                                        fill="currentColor" />
+                                </svg>
+                                GitHub
+                            </a>
+                        </div>
+                    </div>
+                    <div class="hero-meta">
+                        <div class="hero-stat">
+                            <div class="hero-stat-num">3+</div>
+                            <div class="hero-stat-label">Años de práctica</div>
+                        </div>
+                        <div class="hero-divider"></div>
+                        <div class="hero-stat">
+                            <div class="hero-stat-num">7+</div>
+                            <div class="hero-stat-label">Tecnologías</div>
+                        </div>
+                        <div class="hero-divider"></div>
+                        <div class="hero-stat">
+                            <div class="hero-stat-num">2</div>
+                            <div class="hero-stat-label">Proyectos activos</div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <!-- Perfil Profesional -->
-        <section id="perfil" class="section-alt">
-            <div class="container fade-in">
-                <h2>Perfil Profesional</h2>
-                <div class="card">
-                    <p>Proactivo y responsable, con un fuerte enfoque en el aprendizaje continuo dentro del ecosistema
-                        de desarrollo de software. Especializado en aplicar conocimientos técnicos para añadir valor
-                        tangible a equipos de trabajo, con especial interés en la automatización y eficiencia mediante
-                        Inteligencia Artificial.</p>
+        <!-- PERFIL -->
+        <section id="perfil" class="section section-stripe">
+            <div class="wrap">
+                <div class="profile-layout">
+                    <div class="profile-text reveal">
+                        <p class="section-label">Perfil</p>
+                        <h2 class="section-title">Sobre mí</h2>
+                        <p>
+                            Desarrollador de software enfocado en la creación de aplicaciones web robustas y
+                            mantenibles. Trabajo con Java, Spring Boot, React y bases de datos relacionales
+                            para construir sistemas completos de gestión.
+                        </p>
+                        <p>
+                            Me interesa la arquitectura limpia, las buenas prácticas de desarrollo y la
+                            mejora continua dentro del ecosistema backend. Busco activamente nuevos desafíos
+                            donde pueda aportar valor técnico real.
+                        </p>
+                        <div class="profile-tags">
+                            <span class="tag">Backend development</span>
+                            <span class="tag">REST APIs</span>
+                            <span class="tag">Clean Architecture</span>
+                            <span class="tag">Agile / Scrum</span>
+                            <span class="tag">Buenos Aires, AR</span>
+                        </div>
+                    </div>
+                    <div class="reveal reveal-delay-2">
+                        <div class="profile-card">
+                            <div class="profile-card-name">Iñaki Urbizu</div>
+                            <div class="profile-card-role">Full Stack Developer · Buenos Aires</div>
+                            <div class="profile-card-items">
+                                <div class="profile-card-item">
+                                    <svg width="15" height="15" viewBox="0 0 15 15" fill="none">
+                                        <path
+                                            d="M7.5 0C4.46 0 2 2.46 2 5.5c0 3.75 5.5 9.5 5.5 9.5s5.5-5.75 5.5-9.5C13 2.46 10.54 0 7.5 0zm0 7.5a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"
+                                            fill="currentColor" />
+                                    </svg>
+                                    Buenos Aires, Argentina
+                                </div>
+                                <div class="profile-card-item">
+                                    <svg width="15" height="15" viewBox="0 0 15 15" fill="none">
+                                        <rect x="1" y="3" width="13" height="10" rx="1.5" stroke="currentColor"
+                                            stroke-width="1.3" />
+                                        <path d="M1 5.5l6.5 4 6.5-4" stroke="currentColor" stroke-width="1.3" />
+                                    </svg>
+                                    urbizuinaki9@gmail.com
+                                </div>
+                                <div class="profile-card-item">
+                                    <svg width="15" height="15" viewBox="0 0 15 15" fill="none">
+                                        <rect x="1" y="1" width="13" height="13" rx="2" stroke="currentColor"
+                                            stroke-width="1.3" />
+                                        <path d="M4 6v5M4 4v.5M7 11V8.5C7 7.5 7.5 7 8.5 7S10 7.5 10 8.5V11M7 6v5"
+                                            stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
+                                    </svg>
+                                    linkedin.com/in/inaki-urbizu
+                                </div>
+                                <div class="profile-card-item">
+                                    <svg width="15" height="15" viewBox="0 0 15 15" fill="none">
+                                        <path
+                                            d="M7.5 0C3.36 0 0 3.45 0 7.7c0 3.4 2.16 6.28 5.16 7.3.38.07.52-.17.52-.38v-1.34C3.6 13.76 3.16 12.4 3.16 12.4c-.34-.9-.84-1.13-.84-1.13-.69-.48.05-.47.05-.47.76.05 1.16.8 1.16.8.68 1.18 1.77.84 2.2.64.07-.5.26-.84.48-1.04-1.68-.2-3.45-.86-3.45-3.82 0-.84.29-1.53.78-2.07-.08-.2-.34-1 .07-2.08 0 0 .64-.21 2.1.8A7.2 7.2 0 0 1 7.5 3.6c.65 0 1.3.09 1.9.26 1.46-1.01 2.1-.8 2.1-.8.4 1.08.15 1.88.07 2.08.49.54.78 1.23.78 2.07 0 2.97-1.77 3.62-3.46 3.81.27.24.52.7.52 1.42v2.1c0 .21.13.46.52.38A7.72 7.72 0 0 0 15 7.7C15 3.45 11.64 0 7.5 0z"
+                                            fill="currentColor" />
+                                    </svg>
+                                    github.com/RullyUrbizu
+                                </div>
+                                <div class="profile-card-item">
+                                    <svg width="15" height="15" viewBox="0 0 15 15" fill="none">
+                                        <path
+                                            d="M7.5 1a6.5 6.5 0 1 0 0 13A6.5 6.5 0 0 0 7.5 1zm0 1.2a5.3 5.3 0 1 1 0 10.6A5.3 5.3 0 0 1 7.5 2.2zm.6 2.4H6.8v4.1l3.5 2.1.7-1.1-3-1.8V4.6z"
+                                            fill="currentColor" />
+                                    </svg>
+                                    Disponible para nuevas oportunidades
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <!-- Experiencia Laboral / Proyectos -->
-        <section id="experiencia" class="container">
-            <div class="fade-in">
-                <h2>Experiencia y Proyectos</h2>
+        <!-- EXPERIENCIA -->
+        <section id="experiencia" class="section">
+            <div class="wrap">
+                <p class="section-label reveal">Experiencia</p>
+                <h2 class="section-title reveal reveal-delay-1">Proyectos y trabajo</h2>
+                <div class="exp-list">
 
-                <div class="card">
-                    <div class="exp-header">
+                    <div class="exp-card reveal">
+                        <div class="exp-card-top">
+                            <div>
+                                <div class="exp-card-title">Cialco Stock Application</div>
+                                <div class="exp-sub">Full Stack Developer · Sistema de Gestión de Inventario</div>
+                            </div>
+                            <span class="exp-badge">2026 — Presente</span>
+                        </div>
+                        <p class="exp-desc">
+                            Desarrollo de un sistema de gestión de stock para
+                            <a href="https://cialco.netlify.app" target="_blank"
+                                style="color:var(--accent); text-decoration:underline; font-weight:500;">Cialco</a>,
+                            orientado a mejorar el control de inventario y el seguimiento de movimientos de mercadería.
+                        </p>
+                        <ul class="exp-bullets">
+                            <li>Panel de administración para gestión integral de inventario.</li>
+                            <li>Reportes de análisis de movimientos de stock en tiempo real.</li>
+                            <li>Estructura de datos diseñada para escalabilidad y mantenimiento a largo plazo.</li>
+                        </ul>
+                    </div>
+
+                    <div class="exp-card reveal reveal-delay-1">
+                        <div class="exp-card-top">
+                            <div>
+                                <div class="exp-card-title">FishSpot App</div>
+                                <div class="exp-sub">Full Stack Developer · Proyecto Académico</div>
+                            </div>
+                            <span class="exp-badge">2024 — Presente</span>
+                        </div>
+                        <p class="exp-desc">
+                            Aplicación web con React en el frontend y NestJS en el backend, desarrollada como
+                            proyecto académico con foco en arquitectura de aplicaciones web modernas.
+                        </p>
+                        <ul class="exp-bullets">
+                            <li>Autenticación de usuarios mediante JWT.</li>
+                            <li>Desarrollo e integración completa de APIs REST.</li>
+                            <li>Persistencia de datos con bases de datos relacionales.</li>
+                        </ul>
+                        <a href="https://github.com/TpFishSpot" target="_blank" class="exp-link">
+                            Ver repositorio
+                            <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
+                                <path d="M2 11L11 2M11 2H5M11 2v6" stroke="currentColor" stroke-width="1.5"
+                                    stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                        </a>
+                    </div>
+
+                    <div class="exp-card reveal reveal-delay-2">
+                        <div class="exp-card-top">
+                            <div>
+                                <div class="exp-card-title">Proyectos Colaborativos</div>
+                                <div class="exp-sub">Desarrollo de Aplicaciones Web</div>
+                            </div>
+                        </div>
+                        <p class="exp-desc">
+                            Participación en proyectos de desarrollo colaborativo aplicando metodologías ágiles
+                            como Scrum y Kanban. Uso de Git y Git Flow para control de versiones y coordinación
+                            eficiente entre desarrolladores.
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- HABILIDADES -->
+        <section id="habilidades" class="section section-stripe">
+            <div class="wrap">
+                <p class="section-label reveal">Habilidades</p>
+                <h2 class="section-title reveal reveal-delay-1">Stack técnico</h2>
+                <div class="skills-layout">
+
+                    <div class="skill-group reveal">
+                        <div class="skill-group-title">Lenguajes & Frameworks</div>
+                        <div class="skill-chips">
+                            <span class="chip">Java</span>
+                            <span class="chip">TypeScript</span>
+                            <span class="chip">JavaScript</span>
+                            <span class="chip">Python</span>
+                            <span class="chip">Spring Boot</span>
+                            <span class="chip">NestJS</span>
+                            <span class="chip">React</span>
+                        </div>
+                    </div>
+
+                    <div class="skill-group reveal reveal-delay-1">
+                        <div class="skill-group-title">Backend & APIs</div>
+                        <div class="skill-chips">
+                            <span class="chip">REST APIs</span>
+                            <span class="chip">JWT Auth</span>
+                            <span class="chip">Hibernate</span>
+                            <span class="chip">Sequelize</span>
+                        </div>
+                    </div>
+
+                    <div class="skill-group reveal reveal-delay-2">
+                        <div class="skill-group-title">Infraestructura & DB</div>
+                        <div class="skill-chips">
+                            <span class="chip">Docker</span>
+                            <span class="chip">PostgreSQL</span>
+                            <span class="chip">PostGIS</span>
+                            <span class="chip">SQL</span>
+                            <span class="chip">Git</span>
+                            <span class="chip">Git Flow</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- EDUCACIÓN -->
+        <section id="educacion" class="section">
+            <div class="wrap">
+                <p class="section-label reveal">Formación</p>
+                <h2 class="section-title reveal reveal-delay-1">Educación</h2>
+                <div class="edu-list">
+
+                    <div class="edu-card reveal">
                         <div>
-                            <h3>Cialco Stock Application — Full Stack Developer</h3>
-                            <p><strong>Gestión de Inventario y Logística</strong></p>
+                            <div class="edu-degree">Tecnicatura en Programación Informática</div>
+                            <div class="edu-school">Universidad Nacional de Quilmes</div>
                         </div>
-                        <span class="exp-date">2026 - Presente</span>
+                        <span class="edu-period">2022 — 2025</span>
                     </div>
-                    <p>Desarrollo de un sistema personalizado de gestión de stock para <a
-                            href="https://cialco.netlify.app" target="_blank"
-                            style="color:var(--accent); text-decoration:underline;">Cialco</a>, optimizando el
-                        seguimiento de activos y la eficiencia operativa de la empresa.</p>
-                    <ul>
-                        <li>Diseño e implementación de un panel de administración para control de existencias en tiempo
-                            real.</li>
-                        <li>Desarrollo de módulos de reportes y análisis de movimientos de mercadería.</li>
-                        <li>Arquitectura escalable cumpliendo con requerimientos específicos de negocio.</li>
-                    </ul>
-                    <br>
-                    <!-- <a href="https://cialco.netlify.app" target="_blank"
-                        style="color:var(--accent); text-decoration:none; font-weight:600;">Ver Aplicación →</a> -->
-                </div>
 
-                <div class="card">
-                    <div class="exp-header">
+                    <div class="edu-card reveal reveal-delay-1">
                         <div>
-                            <h3>FishSpot App — Full Stack Developer</h3>
-                            <p><strong>Proyecto Académico Destacado</strong></p>
+                            <div class="edu-degree">Educación Secundaria</div>
+                            <div class="edu-school">Instituto Osvaldo Magnasco</div>
                         </div>
-                        <span class="exp-date">2024 - Presente</span>
+                        <span class="edu-period">2014 — 2019</span>
                     </div>
-                    <p>Liderazgo técnico en el desarrollo de una aplicación web integral utilizando React para el
-                        frontend y NestJS para el backend.</p>
-                    <ul>
-                        <li>Implementación de sistemas de autenticación segura mediante JWT.</li>
-                        <li>Integración fluida de servicios API RESTful.</li>
-                        <li>Gestión de bases de datos relacionales para persistencia de datos complejos.</li>
-                    </ul>
-                    <br>
-                    <a href="https://github.com/TpFishSpot" target="_blank"
-                        style="color:var(--accent); text-decoration:none; font-weight:600;">Ver Repositorio →</a>
-                </div>
 
-                <div class="card">
-                    <div class="exp-header">
-                        <div>
-                            <h3>Desarrollo de Aplicaciones Web</h3>
-                            <p><strong>Proyectos Colaborativos</strong></p>
-                        </div>
-                    </div>
-                    <p>Participación activa en el desarrollo de soluciones grupales aplicando metodologías ágiles (Scrum
-                        y Kanban). Uso intensivo de Git y flujo Git Flow para la gestión de versiones y colaboración en
-                        repositorios conjuntos.</p>
                 </div>
             </div>
         </section>
 
-        <!-- Habilidades Técnicas -->
-        <section id="habilidades" class="section-alt">
-            <div class="container fade-in">
-                <h2>Habilidades Técnicas</h2>
-                <div class="skills-grid">
-                    <div class="card">
-                        <h3>Lenguajes y Frameworks</h3>
-                        <div class="skill-list">
-                            <span class="skill-badge">Java</span>
-                            <span class="skill-badge">TypeScript</span>
-                            <span class="skill-badge">JavaScript</span>
-                            <span class="skill-badge">Python</span>
-                            <span class="skill-badge">Spring Boot</span>
-                            <span class="skill-badge">NestJS</span>
-                            <span class="skill-badge">React</span>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <h3>Desarrollo con IA</h3>
-                        <div class="skill-list">
-                            <span class="skill-badge">Google Antigravity</span>
-                            <span class="skill-badge">Claude Code</span>
-                            <span class="skill-badge">Cursor</span>
-                            <span class="skill-badge">Prompt Engineering</span>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <h3>Infraestructura y DB</h3>
-                        <div class="skill-list">
-                            <span class="skill-badge">Docker</span>
-                            <span class="skill-badge">SQL / PostgreSQL</span>
-                            <span class="skill-badge">Sequelize / Hibernate</span>
-                            <span class="skill-badge">PostGIS</span>
-                            <span class="skill-badge">Git / Git Flow</span>
-                        </div>
+        <!-- CONTACTO -->
+        <section id="contacto" class="section">
+            <div class="wrap">
+                <div class="contact-shell reveal">
+                    <h2>¿Trabajamos juntos?</h2>
+                    <p>Estoy disponible para oportunidades laborales y proyectos de software.</p>
+                    <div class="contact-btns">
+                        <a href="https://www.linkedin.com/in/inaki-urbizu-299477304/" target="_blank"
+                            class="btn btn-contact-primary">
+                            <svg width="15" height="15" viewBox="0 0 15 15" fill="none">
+                                <rect x="1" y="1" width="13" height="13" rx="2" stroke="currentColor"
+                                    stroke-width="1.3" />
+                                <path d="M4 6v5M4 4v.5M7 11V8.5C7 7.5 7.5 7 8.5 7S10 7.5 10 8.5V11M7 6v5"
+                                    stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
+                            </svg>
+                            Ver LinkedIn
+                        </a>
+                        <a href="https://github.com/RullyUrbizu" target="_blank" class="btn btn-contact-ghost">
+                            GitHub / RullyUrbizu
+                        </a>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Educación -->
-        <section id="educacion" class="container">
-            <div class="fade-in">
-                <h2>Educación</h2>
-                <div class="card">
-                    <div class="exp-header">
-                        <div>
-                            <h3>Tecnicatura en Programación Informática</h3>
-                            <p>Universidad Nacional de Quilmes</p>
-                        </div>
-                        <span class="exp-date">2022 - 2025</span>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="exp-header">
-                        <div>
-                            <h3>Educación Secundaria</h3>
-                            <p>Instituto Osvaldo Magnasco</p>
-                        </div>
-                        <span class="exp-date">2014 - 2019</span>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Contacto -->
-        <section id="contacto" class="section-alt" style="text-align: center;">
-            <div class="container fade-in">
-                <h2 style="border:none; padding:0;">Contacto Profesional</h2>
-                <p style="margin-bottom: 3rem;">Disponible para entrevistas y consultas técnicas sobre desarrollo de
-                    software.</p>
-                <div style="display: flex; justify-content: center; gap: 3rem; flex-wrap: wrap;">
-                    <a href="mailto:urbizuinaki9@gmail.com" class="btn">urbizuinaki9@gmail.com</a>
-                    <a href="https://github.com/RullyUrbizu" target="_blank"
-                        class="btn btn-outline">GitHub/RullyUrbizu</a>
-                </div>
-            </div>
-        </section>
     </main>
 
+    <!-- FOOTER -->
     <footer>
-        <div class="container">
-            <p>&copy; 2026 Iñaki Urbizu — Buenos Aires, Argentina</p>
+        <div class="wrap footer-inner">
+            <p class="footer-copy">© 2026 Iñaki Urbizu — Buenos Aires, Argentina</p>
+            <nav class="footer-nav">
+                <a href="#perfil">Perfil</a>
+                <a href="#experiencia">Experiencia</a>
+                <a href="#habilidades">Habilidades</a>
+                <a href="#contacto">Contacto</a>
+            </nav>
         </div>
     </footer>
 
-    <script src="app.js"></script>
+    <script>
+        // Scroll reveal
+        const reveals = document.querySelectorAll('.reveal');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(e => {
+                if (e.isIntersecting) {
+                    e.target.classList.add('in');
+                    observer.unobserve(e.target);
+                }
+            });
+        }, { threshold: 0.12 });
+        reveals.forEach(el => observer.observe(el));
+
+        // Hero immediate reveal
+        document.querySelectorAll('.hero .reveal').forEach(el => el.classList.add('in'));
+
+        // Active nav link on scroll
+        const sections = document.querySelectorAll('section[id]');
+        const navLinks = document.querySelectorAll('.nav-links a');
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(s => {
+                if (window.scrollY >= s.offsetTop - 120) current = s.getAttribute('id');
+            });
+            navLinks.forEach(a => {
+                a.style.color = a.getAttribute('href') === '#' + current ? 'var(--ink)' : '';
+            });
+        });
+    </script>
+
 </body>
 
 </html>
