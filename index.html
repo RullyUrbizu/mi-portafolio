@@ -15,9 +15,7 @@
     <style>
         :root {
             --ink: #0a0a0f;
-            --ink-80: rgba(10, 10, 15, 0.8);
             --paper: #f5f3ef;
-            --paper-warm: #ede9e2;
             --accent: #1a3cff;
             --accent-dim: rgba(26, 60, 255, 0.10);
             --muted: #6b6b78;
@@ -49,7 +47,6 @@
             overflow-x: hidden;
         }
 
-        /* ─── NOISE TEXTURE OVERLAY ─── */
         body::before {
             content: '';
             position: fixed;
@@ -60,7 +57,6 @@
             opacity: 0.6;
         }
 
-        /* ─── TYPOGRAPHY ─── */
         h1,
         h2,
         h3,
@@ -72,19 +68,18 @@
             color: var(--ink);
         }
 
-        /* ─── LAYOUT ─── */
         .wrap {
             max-width: var(--max);
             margin: 0 auto;
             padding: 0 2rem;
         }
 
-        /* ─── HEADER / NAV ─── */
+        /* NAV */
         header {
             position: sticky;
             top: 0;
             z-index: 100;
-            background: rgba(245, 243, 239, 0.85);
+            background: rgba(245, 243, 239, 0.88);
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
             border-bottom: 1px solid var(--border);
@@ -122,18 +117,29 @@
             font-size: 0.875rem;
             font-weight: 500;
             transition: color 0.2s;
-            letter-spacing: 0.01em;
         }
 
         .nav-links a:hover {
             color: var(--ink);
         }
 
-        /* ─── HERO ─── */
+        /* HERO */
         .hero {
             padding: 7rem 0 6rem;
             position: relative;
             overflow: hidden;
+        }
+
+        .hero-deco {
+            position: absolute;
+            right: -120px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 480px;
+            height: 480px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(26, 60, 255, 0.06) 0%, transparent 70%);
+            pointer-events: none;
         }
 
         .hero-grid {
@@ -225,20 +231,7 @@
             margin-left: auto;
         }
 
-        /* Decorative element */
-        .hero-deco {
-            position: absolute;
-            right: -120px;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 480px;
-            height: 480px;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(26, 60, 255, 0.06) 0%, transparent 70%);
-            pointer-events: none;
-        }
-
-        /* ─── BUTTONS ─── */
+        /* BUTTONS */
         .btn {
             display: inline-flex;
             align-items: center;
@@ -277,7 +270,7 @@
             transform: translateY(-1px);
         }
 
-        /* ─── SECTION SHELL ─── */
+        /* SECTIONS */
         .section {
             padding: 5.5rem 0;
         }
@@ -313,7 +306,7 @@
             margin-bottom: 3rem;
         }
 
-        /* ─── PROFILE ─── */
+        /* PROFILE */
         .profile-layout {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -346,7 +339,6 @@
             border-radius: 100px;
             border: 1px solid var(--border-strong);
             color: var(--muted);
-            letter-spacing: 0.02em;
         }
 
         .profile-card {
@@ -403,7 +395,7 @@
             opacity: 0.6;
         }
 
-        /* ─── EXPERIENCE ─── */
+        /* EXPERIENCE */
         .exp-list {
             display: flex;
             flex-direction: column;
@@ -416,7 +408,6 @@
             border-radius: 12px;
             padding: 2rem 2.25rem;
             transition: border-color 0.2s, box-shadow 0.2s;
-            position: relative;
         }
 
         .exp-card:hover {
@@ -446,7 +437,6 @@
             border-radius: 100px;
             background: var(--accent-dim);
             color: var(--accent);
-            letter-spacing: 0.03em;
         }
 
         .exp-sub {
@@ -502,7 +492,7 @@
             gap: 0.5rem;
         }
 
-        /* ─── SKILLS ─── */
+        /* SKILLS */
         .skills-layout {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -549,7 +539,7 @@
             border-color: var(--ink);
         }
 
-        /* ─── EDUCATION ─── */
+        /* EDUCATION */
         .edu-list {
             display: flex;
             flex-direction: column;
@@ -596,7 +586,7 @@
             white-space: nowrap;
         }
 
-        /* ─── CONTACT ─── */
+        /* CONTACT */
         .contact-shell {
             background: var(--ink);
             border-radius: 20px;
@@ -664,7 +654,7 @@
             transform: translateY(-2px);
         }
 
-        /* ─── FOOTER ─── */
+        /* FOOTER */
         footer {
             padding: 2.5rem 0;
             border-top: 1px solid var(--border);
@@ -698,7 +688,7 @@
             color: var(--ink);
         }
 
-        /* ─── SCROLL ANIMATIONS ─── */
+        /* ANIMATIONS */
         .reveal {
             opacity: 0;
             transform: translateY(20px);
@@ -722,7 +712,7 @@
             transition-delay: 0.3s;
         }
 
-        /* ─── RESPONSIVE ─── */
+        /* RESPONSIVE */
         @media (max-width: 900px) {
             .hero-grid {
                 grid-template-columns: 1fr;
@@ -773,7 +763,6 @@
 
 <body>
 
-    <!-- NAV -->
     <header>
         <div class="wrap nav">
             <a href="#" class="logo">Iñaki <span>Urbizu</span></a>
@@ -809,6 +798,13 @@
                                     <path d="M2 7h10M7 2l5 5-5 5" stroke="currentColor" stroke-width="1.5"
                                         stroke-linecap="round" stroke-linejoin="round" />
                                 </svg>
+                            </a>
+                            <a href="Iñaki_Urbizu.pdf" download class="btn btn-ghost">
+                                <svg width="15" height="15" viewBox="0 0 15 15" fill="none">
+                                    <path d="M7.5 1v9M4 7l3.5 3.5L11 7M2 13h11" stroke="currentColor" stroke-width="1.4"
+                                        stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                                Descargar CV
                             </a>
                             <a href="https://github.com/RullyUrbizu" target="_blank" class="btn btn-ghost">
                                 <svg width="15" height="15" viewBox="0 0 15 15" fill="none">
@@ -873,6 +869,14 @@
                                 <div class="profile-card-item">
                                     <svg width="15" height="15" viewBox="0 0 15 15" fill="none">
                                         <path
+                                            d="M7.5 1a6.5 6.5 0 1 0 0 13A6.5 6.5 0 0 0 7.5 1zm0 1.2a5.3 5.3 0 1 1 0 10.6A5.3 5.3 0 0 1 7.5 2.2zm.6 2.4H6.8v4.1l3.5 2.1.7-1.1-3-1.8V4.6z"
+                                            fill="currentColor" />
+                                    </svg>
+                                    Disponible para nuevas oportunidades
+                                </div>
+                                <div class="profile-card-item">
+                                    <svg width="15" height="15" viewBox="0 0 15 15" fill="none">
+                                        <path
                                             d="M7.5 0C4.46 0 2 2.46 2 5.5c0 3.75 5.5 9.5 5.5 9.5s5.5-5.75 5.5-9.5C13 2.46 10.54 0 7.5 0zm0 7.5a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"
                                             fill="currentColor" />
                                     </svg>
@@ -903,14 +907,6 @@
                                     </svg>
                                     github.com/RullyUrbizu
                                 </div>
-                                <div class="profile-card-item">
-                                    <svg width="15" height="15" viewBox="0 0 15 15" fill="none">
-                                        <path
-                                            d="M7.5 1a6.5 6.5 0 1 0 0 13A6.5 6.5 0 0 0 7.5 1zm0 1.2a5.3 5.3 0 1 1 0 10.6A5.3 5.3 0 0 1 7.5 2.2zm.6 2.4H6.8v4.1l3.5 2.1.7-1.1-3-1.8V4.6z"
-                                            fill="currentColor" />
-                                    </svg>
-                                    Disponible para nuevas oportunidades
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -940,10 +936,32 @@
                             orientado a mejorar el control de inventario y el seguimiento de movimientos de mercadería.
                         </p>
                         <ul class="exp-bullets">
-                            <li>Panel de administración para gestión integral de inventario.</li>
-                            <li>Reportes de análisis de movimientos de stock en tiempo real.</li>
-                            <li>Estructura de datos diseñada para escalabilidad y mantenimiento a largo plazo.</li>
+                            <li>Desarrollé un sistema de trazabilidad criogénica para la gestión de inventario bovino.
+                            </li>
+                            <li>Diseñé la arquitectura backend con Java y Spring Boot aplicando patrón MVC.</li>
+                            <li>Implementé APIs REST para la comunicación entre frontend React y backend.</li>
+                            <li>Modelé la base de datos relacional y optimicé consultas SQL para administrar más de 500
+                                registros activos.</li>
+                            <li>Implementé validaciones y control de errores para garantizar consistencia e integridad
+                                de datos.</li>
                         </ul>
+                        <div class="exp-links">
+                            <a href="https://github.com/RullyUrbizu/cialco-frontend" target="_blank" class="exp-link">
+                                Frontend
+                                <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
+                                    <path d="M2 11L11 2M11 2H5M11 2v6" stroke="currentColor" stroke-width="1.5"
+                                        stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                            </a>
+                            <span class="exp-link-sep">&middot;</span>
+                            <a href="https://github.com/RullyUrbizu/cialco-backend" target="_blank" class="exp-link">
+                                Backend
+                                <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
+                                    <path d="M2 11L11 2M11 2H5M11 2v6" stroke="currentColor" stroke-width="1.5"
+                                        stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                            </a>
+                        </div>
                     </div>
 
                     <div class="exp-card reveal reveal-delay-1">
@@ -1080,6 +1098,13 @@
                             </svg>
                             Ver LinkedIn
                         </a>
+                        <a href="Iñaki_Urbizu.pdf" download class="btn btn-contact-ghost">
+                            <svg width="15" height="15" viewBox="0 0 15 15" fill="none">
+                                <path d="M7.5 1v9M4 7l3.5 3.5L11 7M2 13h11" stroke="currentColor" stroke-width="1.4"
+                                    stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                            Descargar CV
+                        </a>
                         <a href="https://github.com/RullyUrbizu" target="_blank" class="btn btn-contact-ghost">
                             GitHub / RullyUrbizu
                         </a>
@@ -1090,7 +1115,6 @@
 
     </main>
 
-    <!-- FOOTER -->
     <footer>
         <div class="wrap footer-inner">
             <p class="footer-copy">© 2026 Iñaki Urbizu — Buenos Aires, Argentina</p>
@@ -1104,7 +1128,6 @@
     </footer>
 
     <script>
-        // Scroll reveal
         const reveals = document.querySelectorAll('.reveal');
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(e => {
@@ -1116,10 +1139,8 @@
         }, { threshold: 0.12 });
         reveals.forEach(el => observer.observe(el));
 
-        // Hero immediate reveal
         document.querySelectorAll('.hero .reveal').forEach(el => el.classList.add('in'));
 
-        // Active nav link on scroll
         const sections = document.querySelectorAll('section[id]');
         const navLinks = document.querySelectorAll('.nav-links a');
         window.addEventListener('scroll', () => {
